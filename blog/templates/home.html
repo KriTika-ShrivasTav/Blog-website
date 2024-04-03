@@ -1,0 +1,106 @@
+{% extends 'main.html' %}
+
+
+
+<!-- ==================================================================== -->
+
+{% block content %}
+
+
+
+<!-- ============================================================== -->
+
+<!-- 
+<div class="container my-3" style="background-color: rgb(253, 246, 246);" > -->
+
+    <!-- <img src="{{ url_for('static', filename='blogimg.jpg') }}"
+        style="width: auto; height: auto; max-width: 100%; max-height: 50%;" class="my-3"> -->
+
+
+    <!-- <div class="row mb-2 "> -->
+
+        <!-- {% for blog in data %}
+
+
+         ================================== purana================================= 
+
+         <div class="col-md-6 my-3 border-dark " style="height:400px;">
+            <div
+                class=" text-bg-light row g-0 border rounded overflow-hidden flex flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class=" col p-4 d-flex flex-column position-static border-dark  "> 
+
+                    <article class="media content-section">
+                        <div class="media-body">
+                          <div class="article-metadata">
+
+                    <h3 class="article-title mb-0">{{blog.title}}</h3>
+                    <small class="text-muted">{{blog.pub_date}}</small>
+                    </div>
+                    <p class="aticle-content mb-auto p-2">{{blog.content}}</p>
+                    <h5><small class="text-body-secondary">Author:- {{blog.author}} </small></h5>
+                    <a href="/blog_detail/{{blog.blog_id}}"
+                        class="icon-link gap-1 icon-link-hover stretched-link btn  btn-outline-secondary"><small
+                            class="text-body-primary">
+                            Continue reading</small>
+
+                    </a>
+
+                </div>
+            </article> 
+                 </div>
+
+            </div>
+        </div> 
+
+ ================================================================= 
+
+
+
+
+
+
+
+        {% endfor %}
+    </div> -->
+
+
+ 
+    {% for post in posts.items %}
+        <article class="media content-section">
+            <div class="sticky-header__user-container">
+                <div class="sticky-header__avtar">
+                    <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+                </div>
+            
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.author.username }}</a>
+              <small class="text-muted">{{ post.date_posted.strftime('%y-%m-%d') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+          </div>
+        </div>
+        </article>
+    {% endfor %}
+
+
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+      {% if posts.page == page_num %}
+        <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+      {% else %}
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+      {% endif %}
+    {% else %}
+      ...
+    {% endif %}
+  {% endfor %}
+
+<!-- </div> -->
+
+
+
+<!-- ========================================================================= -->
+
+{% endblock content %}
