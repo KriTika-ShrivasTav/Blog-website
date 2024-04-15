@@ -1,7 +1,8 @@
 
 from datetime import datetime
+from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
 from pytz import utc  # Importing UTC timezone from pytz
-from blog import db, login_manager
+from blog import db, login_manager, app
 from flask_login import UserMixin
 
 @login_manager.user_loader
@@ -18,6 +19,8 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(20), nullable=False)
     address= db.Column(db.String(20), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
+
+   
 
     def __repr__(self):
        return f"User('{self.firstname}', '{self.email}', '{self.username}')"
