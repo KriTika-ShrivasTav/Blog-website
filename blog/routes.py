@@ -1,7 +1,6 @@
 import os
 import secrets
 
-
 from PIL import Image
 from flask import render_template, request, redirect, url_for, flash, abort
 from blog import app, db, bcrypt
@@ -9,10 +8,6 @@ from blog.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                         PostForm)
 from blog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
-
-
-
-
 
 
 @app.route('/')
